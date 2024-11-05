@@ -1,0 +1,15 @@
+/* src/components/TaskTimer.css */
+.task-timer {
+  text-align: center;
+  padding: 20px;
+}
+
+.timer-display {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.controls button {
+  margin: 0 10px;
+  padding: 10px 20px;
+}

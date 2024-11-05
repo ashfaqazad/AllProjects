@@ -1,0 +1,60 @@
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const Todo = () => {
+    const [todos, setTodos] = useState([]);
+    const [newTodo, setNewTodo] = useState('');
+
+    const addTodo = () => {
+        if (newTodo.trim() !== "") {
+            console.log(newTodo);
+            setTodos([...todos, { text: newTodo, completed: false }]);
+            setNewTodo('');
+        }
+    };
+
+    const toggleTodo = (index) => {
+        const updatedTodos = todos.map((todo, i) =>
+            i === index ? { ...todo, completed: !todo.completed } : todo
+        );
+        setTodos(updatedTodos);
+    };
+
+    const removeTodo = (index) => {
+        const updatedTodos = todos.filter((_, i) => i !== index);
+        setTodos(updatedTodos); // Yahan setTodos hona chahiye
+    };
+
+    const removeAll = () =>{
+        setTodos([])
+    }
+    return (
+        <div className='container'>
+            <h2>Todo List</h2>
+            <input
+                type='text'
+                value={newTodo}
+                onChange={(e) => setNewTodo(e.target.value)}
+                placeholder='Type here'
+            />
+            <button onClick={addTodo}>Add</button>
+
+            <ul style={{ listStyleType: "none", padding: 0 }}>
+                {todos.map((todo, index) => (
+                    <li key={index}>
+                        <span
+                            onClick={() => toggleTodo(index)}
+                            style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+                        >
+                            {todo.text}
+                        </span>
+                        <button onClick={() => removeTodo(index)}>Remove</button>
+                    </li>
+                ))}
+            </ul>
+                {todos.length >= 1 && <button onClick={removeAll}>Remove All</button>}
+        </div>
+    );
+};
+
+export default Todo;
